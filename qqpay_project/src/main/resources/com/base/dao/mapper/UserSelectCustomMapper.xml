@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.dao.mapper.UserSelectCustomMapper" > 
+  
+  <sql id="selectUserCustom_where">
+  	<if test="userId!=null and userId!=''">
+  	
+  		and U .USER_ID = '${userId}'
+  	
+  	</if>
+  	<if test="userName!=null and userName!=''">
+  	
+  		and U .user_name = '${userName}'
+  	
+  	</if>
+  
+  </sql>
+  
+  <select id="selectUserCustomList" parameterType="com.base.pojo.vo.UserSelectCustom" resultType="com.base.pojo.vo.UserSelectCustom">
+  	
+  	SELECT
+	userinfo.*,
+	US.OPERATION_TIMES,
+	us.id userstatusid,
+	US.LAST_OPERATION_TIME
+FROM
+	(
+		SELECT
+			U .USER_ID userid,
+			U . PASSWORD,
+			u.user_name username,
+			U .REGISTER_TIME registertime,
+			r.ROLE_ID,
+			r.ROLE_NAME
+		FROM
+			T_USER U,
+			T_USER_ROLE ur,
+			T_ROLE r
+		WHERE
+			U .USER_ID = UR.USER_ID
+		AND UR.ROLE_ID = r.ROLE_ID
+		
+		<include refid="selectUserCustom_where"/>
+ 		
+	) userinfo
+LEFT JOIN T_USER_STATUS us ON userinfo.userid = US.USER_ID
+  
+  </select>
+  
+  
+</mapper>

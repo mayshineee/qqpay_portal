@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.business.dao.mapper.CheckOrderMapper" >
+  <resultMap id="selectOrderList" type="com.business.pojo.po.CheckOrderResponseRs" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="username" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NUMBER" property="productNumber" jdbcType="DECIMAL" />
+    <result column="TOTAL_PRICE" property="totalPrice" jdbcType="OTHER" />
+    <result column="DEAL_TIME" property="dealTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="selectOrderResult" type="com.business.pojo.po.CheckOrderResponse">
+  	<result column="SUMPRICE" property="sumPrice" jdbcType="OTHER" />
+    <result column="COT" property="totalCount" jdbcType="DECIMAL" />
+  </resultMap>
+ 
+  <select id="conditionCheck" parameterType="com.business.pojo.po.CheckOrderRequest" resultMap="selectOrderList" >
+    select * from (
+	select temp.*,ROWNUM RM from (
+	select O.ID,U.USER_NAME,P.PRODUCT_NAME,O.PRODUCT_NUMBER,O.TOTAL_PRICE,O.DEAL_TIME,O.ORDER_STATUS 
+	from T_ORDER O,T_USER U, T_PRODUCT P 
+	<include refid="baseCondition1"/>
+	<include refid="baseCondition2"/>
+	ORDER BY O.DEAL_TIME desc) temp 
+	<include refid="baseCondition3"/>
+  </select>
+  <select id="checkSumPriceAndCount" parameterType="com.business.pojo.po.CheckOrderRequest" resultMap="selectOrderResult" >
+    select count(1) COT,SUM(O.TOTAL_PRICE) SUMPRICE from T_ORDER O 
+    <include refid="baseCondition4"/>
+    <include refid="baseCondition2"/>
+  </select>
+  <sql id="baseCondition1">
+  	<![CDATA[
+	  	where O.USER_ID=U.USER_ID and O.PRODUCT_ID=P.PRODUCT_ID 
+		and O.USER_ID=#{userId,jdbcType=VARCHAR} and O.DEAL_TIME > to_Date(#{checkStartDate,jdbcType=VARCHAR},'yyyy-mm-dd')
+		and O.DEAL_TIME < to_Date(#{checkEndDate,jdbcType=VARCHAR},'yyyy-mm-dd')
+	]]>
+  </sql>
+  <sql id="baseCondition2">
+  	<if test="selectKind == 1">
+  		and O.PRODUCT_ID=#{selectKind,jdbcType=VARCHAR}
+  	</if>
+  	<if test="selectKind == 2">
+  		and O.PRODUCT_ID=#{selectKind,jdbcType=VARCHAR}
+  	</if>
+  </sql>
+  <sql id="baseCondition3">
+  	<![CDATA[
+  	where ROWNUM < (#{currentPage}*#{pageSize}+1)) temp1 
+	where RM > ((#{currentPage}-1)*#{pageSize})
+	]]>
+  </sql>
+  <sql id="baseCondition4">
+  	<![CDATA[
+	  	where O.USER_ID=#{userId,jdbcType=VARCHAR} and O.DEAL_TIME > to_Date(#{checkStartDate,jdbcType=VARCHAR},'yyyy-mm-dd')
+		and O.DEAL_TIME < to_Date(#{checkEndDate,jdbcType=VARCHAR},'yyyy-mm-dd')
+	]]>
+  </sql>
+</mapper>

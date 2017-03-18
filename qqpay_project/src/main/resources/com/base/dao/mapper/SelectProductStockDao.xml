@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.dao.mapper.SelectProductStockDao" >
+<resultMap id="BaseResultMap" type="com.base.pojo.vo.SelectProductStock" >
+    <result column="PRODUCT_NAME" property="p_NAME" jdbcType="VARCHAR" />
+    <result column="PRODUCT_PRICE" property="p_PRICE" jdbcType="REAL" />
+    <result column="STOCK_NUMBER" property="s_NUMBER" jdbcType="INTEGER" />
+  </resultMap>
+
+<select id="selectProductStockDao"  resultMap="BaseResultMap">
+    SELECT 
+    		P.PRODUCT_NAME ,
+    		P.PRODUCT_PRICE ,
+    		S.STOCK_NUMBER 
+    FROM 
+    		T_PRODUCT P,T_STOCK S 
+    WHERE 
+     		P.PRODUCT_ID = S.PRODUCT_ID
+  </select>
+  
+</mapper>

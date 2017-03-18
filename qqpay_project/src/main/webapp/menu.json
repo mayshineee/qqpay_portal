@@ -1,0 +1,33 @@
+{
+   "menus" : [{"icon" : "icon-sys","menuid" : "1","menuname" : "系统管理","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "用户管理","url" : "/yycgProject/user/queryuser.action"
+                 },{"icon" : "icon-log","menuid" : "1_1","menuname" : "权限模块管理","url" : "/yycgProject/sysconfig/modulelist.action"
+                 },{"icon" : "icon-log","menuid" : "1_1","menuname" : "角色模块管理","url" : "/yycgProject/sysconfig/rolelist.action"
+                 }] 
+               },
+               {"icon" : "icon-sys","menuid" : "1","menuname" : "药品目录","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "药品目录导出","url" : "/yycgProject/ypml/exportYpxx.action"
+                 },{"icon" : "icon-log","menuid" : "1_1","menuname" : "药品目录导入","url" : "/yycgProject/ypml/importypxx.action"
+                 },{"icon" : "icon-log","menuid" : "1_1","menuname" : "供货商药品目录维护","url" : "/yycgProject/ypml/querygysypml.action"
+                 },{"icon" : "icon-log","menuid" : "1_1","menuname" : "药品目录查询","url" : "/yycgProject/ypml/querygysypmlcontrol.action" 
+                 }] 
+               },
+               {"icon" : "icon-sys","menuid" : "1","menuname" : "采购单管理","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "创建采购单","url" : "/yycgProject/cgd/addcgd.action"
+                 },
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "采购单维护","url" : "/yycgProject/cgd/querycgd.action"
+                 },
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "采购单审核","url" : "/yycgProject/cgd/checkYycgd.action"
+                 },
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "采购单受理","url" : "/yycgProject/cgd/disposeyycgd.action"
+                 },
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "入库","url" : "/yycgProject/cgd/receiveyycgd.action"
+                 }] 
+               },
+               {"icon" : "icon-sys","menuid" : "1","menuname" : "统计分析","url" : "","menus" : [
+                 {"icon" : "icon-log","menuid" : "1_1","menuname" : "交易明细查询","url" : "/yycgProject/statistics/businesslist.action"
+                 }, {"icon" : "icon-log","menuid" : "1_1","menuname" : "按供应商统计","url" : "/yycgProject/statistics/businessgyssum.action"
+                 }] 
+               }
+             ]
+}

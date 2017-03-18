@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- auther zjx -->
+<mapper namespace="com.base.dao.mapper.DeleteUserMapper" >
+ 
+  <delete id="deleteUser" parameterType="java.lang.String" >
+  	delete from T_USER where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteOrder" parameterType="java.lang.String" >
+  	delete from T_ORDER where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteUser_Status" parameterType="java.lang.String" >
+  	delete from T_USER_STATUS where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteUser_Role" parameterType="java.lang.String" >
+  	delete from T_USER_ROLE	where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  
+</mapper>
